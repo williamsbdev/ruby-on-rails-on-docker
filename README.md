@@ -36,3 +36,29 @@ our application.
     docker build -t ruby-on-rails .
 
     docker run --name web -p 3000:3000 ruby-on-rails bundle exec rails s -p 3000 -b '0.0.0.0'
+
+#### Step 4
+
+This results in an error though because we did not configure
+the PostgreSQL database connection properly. We need to add
+the following to our `config/database.yml`:
+
+    default: &default
+      adapter: postgresql
+      encoding: unicode
+      host: db
+      username: postgres
+      password:
+      pool: 5
+
+Also, instead of forcing ourselves to rebuild our container
+each time, we will mount our code directly into the container.
+
+    docker run -v "${PWD}:/myapp"--name web -p 3000:3000 ruby-on-rails bundle exec rails s -p 3000 -b '0.0.0.0'
+
+We encounter another error though because we are not running
+our PostgreSQL database container.
+
+    docker run --name db postgres
+
+    docker run --name web --link db -p 3000:3000 ruby-on-rails bundle exec rails s -p 3000 -b '0.0.0.0'
