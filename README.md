@@ -62,3 +62,13 @@ our PostgreSQL database container.
     docker run --name db postgres
 
     docker run --name web --link db -p 3000:3000 ruby-on-rails bundle exec rails s -p 3000 -b '0.0.0.0'
+
+#### Step 5
+
+Now we get a database does not exist error. We can fix that by
+running the `rake db:create` in our web container.
+
+    docker exec web rake db:create
+
+Finally, we have a fully functioning Ruby on Rails
+application.
