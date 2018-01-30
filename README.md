@@ -22,3 +22,8 @@ While running interactively in the Docker container, we're going to install the
     gem install rails -v 5.0.0.1
 
     rails new app --force --database=postgresql
+
+#### Step 2
+
+You should now have rails installed and a new rails
+application. You may exit the container by typing `exit`.
