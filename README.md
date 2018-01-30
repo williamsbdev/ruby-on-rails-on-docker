@@ -27,3 +27,12 @@ While running interactively in the Docker container, we're going to install the
 
 You should now have rails installed and a new rails
 application. You may exit the container by typing `exit`.
+
+#### Step 3
+
+Now we can finish our Dockerfile and build our image to run
+our application.
+
+    docker build -t ruby-on-rails .
+
+    docker run --name web -p 3000:3000 ruby-on-rails bundle exec rails s -p 3000 -b '0.0.0.0'
