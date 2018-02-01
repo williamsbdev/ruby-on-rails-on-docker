@@ -54,14 +54,14 @@ the following to our `config/database.yml`:
 Also, instead of forcing ourselves to rebuild our container
 each time, we will mount our code directly into the container.
 
-    docker run -v "${PWD}:/myapp"--name web -p 3000:3000 ruby-on-rails bundle exec rails s -p 3000 -b '0.0.0.0'
+    docker run -v "${PWD}:/myapp" --name web -p 3000:3000 ruby-on-rails bundle exec rails s -p 3000 -b '0.0.0.0'
 
 We encounter another error though because we are not running
 our PostgreSQL database container.
 
     docker run --name db postgres
 
-    docker run --name web --link db -p 3000:3000 ruby-on-rails bundle exec rails s -p 3000 -b '0.0.0.0'
+    docker run -v "${PWD}:/myapp" --name web --link db -p 3000:3000 ruby-on-rails bundle exec rails s -p 3000 -b '0.0.0.0'
 
 #### Step 5
 
